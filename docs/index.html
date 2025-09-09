@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Xアルゴリズム完全攻略ガイド - 公開コードから判明した真実</title>
+    <title>Xのアルゴリズム解説 - わかりやすい版</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
             overflow-x: hidden;
         }
 
-        /* ヘッダー */
+        /* ヒーローセクション */
         .hero {
             background: var(--gradient);
             color: white;
@@ -156,111 +156,35 @@
             font-size: 1.1rem;
         }
 
-        /* 円グラフ（修正版） */
-        .score-visual {
+        /* 大きな数字の視覚化 */
+        .big-number-visual {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-            background: linear-gradient(to bottom, #f8f9fa, white);
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
             border-radius: 20px;
             margin: 20px 0;
-        }
-
-        .pie-chart {
             position: relative;
-            width: 250px;
-            height: 250px;
-            margin: 20px auto;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                #FF6B6B 0deg 144deg,     /* 40% = 144deg */
-                #4ECDC4 144deg 216deg,   /* 20% = 72deg */
-                #45B7D1 216deg 288deg,   /* 20% = 72deg */
-                #96CEB4 288deg 324deg,   /* 10% = 36deg */
-                #FFEAA7 324deg 360deg    /* 10% = 36deg */
-            );
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        .pie-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            background: white;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .pie-total {
-            font-size: 3rem;
+        .big-number {
+            font-size: clamp(3rem, 10vw, 5rem);
             font-weight: 900;
-            color: var(--dark);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1;
         }
 
-        .pie-label {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-top: 5px;
-        }
-
-        /* 凡例 */
-        .legend-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-        }
-
-        .legend-item:active {
-            transform: scale(0.98);
-        }
-
-        .legend-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .legend-info {
-            flex: 1;
-        }
-
-        .legend-name {
-            font-size: 0.8rem;
-            color: var(--gray);
-            line-height: 1.2;
-        }
-
-        .legend-value {
+        .big-label {
             font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--dark);
+            color: var(--gray);
+            margin-top: 10px;
         }
 
-        /* 27シグナル表 */
+        /* 18シグナル表 */
         .signals-grid {
             display: grid;
             gap: 15px;
@@ -317,8 +241,8 @@
             color: var(--primary);
         }
 
-        /* タイムライン */
-        .timeline-container {
+        /* 実践アクションプラン */
+        .action-timeline {
             padding: 20px 0;
             position: relative;
         }
@@ -369,24 +293,18 @@
             margin-bottom: 5px;
         }
 
-        .timeline-actions {
-            margin-top: 10px;
-        }
-
-        .action-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 0;
+        .timeline-description {
+            color: var(--gray);
             font-size: 0.9rem;
         }
 
-        .action-check {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 4px;
-            flex-shrink: 0;
+        .timeline-tip {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--primary);
         }
 
         /* カード */
@@ -437,6 +355,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            color: white;
         }
 
         .card-title {
@@ -451,133 +370,6 @@
             margin: 10px 0;
             font-size: 0.9rem;
             line-height: 1.6;
-        }
-
-        /* テキスト品質カード */
-        .quality-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .quality-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .quality-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            border-color: var(--primary);
-        }
-
-        .quality-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .quality-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 10px;
-        }
-
-        .quality-description {
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .quality-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
-            color: var(--primary);
-            border: 1px solid rgba(29, 161, 242, 0.2);
-        }
-
-        .progress-label {
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .progress-value {
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .quality-badge.high {
-            background: linear-gradient(135deg, #fff8e6, #fff5d6);
-            color: var(--warning);
-            border-color: rgba(255, 173, 31, 0.2);
-        }
-
-        .quality-badge.critical {
-            background: linear-gradient(135deg, #ffece6, #ffe5e6);
-            color: var(--danger);
-            border-color: rgba(224, 36, 94, 0.2);
-        }
-
-        .quality-badge.success {
-            background: linear-gradient(135deg, #e6ffe6, #d6ffd6);
-            color: var(--success);
-            border-color: rgba(23, 191, 99, 0.2);
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* 警告ボックス */
-        .alert {
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin: 15px 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            font-size: 0.95rem;
-        }
-
-        .alert-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .alert-danger {
-            background: linear-gradient(135deg, #fee, #fdd);
-            border-left: 4px solid var(--danger);
-            color: var(--danger);
-        }
-
-        .alert-warning {
-            background: linear-gradient(135deg, #fff8e6, #fff5d6);
-            border-left: 4px solid var(--warning);
-            color: #d68000;
-        }
-
-        .alert-success {
-            background: linear-gradient(135deg, #e6ffed, #d6ffd6);
-            border-left: 4px solid var(--success);
-            color: var(--success);
-        }
-
-        .alert-info {
-            background: linear-gradient(135deg, #e6f4ff, #d6ebff);
-            border-left: 4px solid var(--primary);
-            color: var(--primary);
         }
 
         /* チェックリスト */
@@ -628,8 +420,131 @@
             color: white;
         }
 
-        /* 成功の方程式 */
-        .formula-box {
+        /* やってはいけないこと */
+        .danger-box {
+            background: linear-gradient(135deg, #fee, #fdd);
+            border-left: 4px solid var(--danger);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .danger-title {
+            font-weight: 700;
+            color: var(--danger);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .danger-list {
+            color: #c62828;
+            line-height: 1.8;
+        }
+
+        .danger-list li {
+            margin: 8px 0;
+            list-style: none;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .danger-list li::before {
+            content: '🚫';
+            position: absolute;
+            left: 0;
+        }
+
+        /* 警告ボックス */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            font-size: 0.95rem;
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #e6f4ff, #d6ebff);
+            border-left: 4px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #e6ffed, #d6ffd6);
+            border-left: 4px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fff8e6, #fff5d6);
+            border-left: 4px solid var(--warning);
+            color: #d68000;
+        }
+
+        /* いいね獲得のコツ */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: var(--primary);
+        }
+
+        .tip-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .tip-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .tip-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .tip-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+            color: var(--primary);
+            border: 1px solid rgba(29, 161, 242, 0.2);
+        }
+
+        /* まとめ */
+        .summary-box {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             padding: 30px 20px;
@@ -638,19 +553,35 @@
             margin: 20px 0;
         }
 
-        .formula {
-            font-size: 1.2rem;
+        .summary-title {
+            font-size: 1.5rem;
             font-weight: 700;
-            margin: 20px 0;
-            line-height: 2;
+            margin-bottom: 20px;
         }
 
-        .formula-part {
-            display: inline-block;
-            padding: 5px 10px;
+        .summary-points {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .summary-point {
             background: rgba(255,255,255,0.2);
-            border-radius: 8px;
-            margin: 5px;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .summary-number {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .summary-text {
+            text-align: left;
+            flex: 1;
         }
 
         /* CTA */
@@ -697,22 +628,8 @@
                 padding: 40px;
             }
 
-            .legend-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
             .signals-grid {
                 grid-template-columns: repeat(2, 1fr);
-            }
-
-            .pie-chart {
-                width: 300px;
-                height: 300px;
-            }
-
-            .pie-center {
-                width: 180px;
-                height: 180px;
             }
         }
 
@@ -726,31 +643,12 @@
                 padding: 20px 15px;
             }
 
-            .pie-chart {
-                width: 200px;
-                height: 200px;
+            .big-number {
+                font-size: 3rem;
             }
 
-            .pie-center {
-                width: 120px;
-                height: 120px;
-            }
-
-            .pie-total {
-                font-size: 2.5rem;
-            }
-
-            .quality-cards {
+            .tips-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .quality-card {
-                padding: 20px;
-            }
-
-            .quality-icon {
-                font-size: 2rem;
             }
         }
 
@@ -763,26 +661,17 @@
         .fade-in {
             animation: fadeIn 0.6s ease forwards;
         }
-
-        [data-aos] {
-            opacity: 0;
-            transition: all 0.6s ease;
-        }
-
-        [data-aos].aos-animate {
-            opacity: 1;
-        }
     </style>
 </head>
 <body>
     <!-- ヒーローセクション -->
     <div class="hero">
-        <h1>📱 Xアルゴリズム完全攻略ガイド</h1>
-        <p>公開コードから判明した「投稿が伸びる」本当の仕組み</p>
+        <h1>📱 Xのアルゴリズムを理解しよう</h1>
+        <p>公開されたコードから分かった本当の仕組み</p>
     </div>
 
     <div class="container">
-        <!-- 投稿評価の仕組み -->
+        <!-- 投稿の仕組み -->
         <div class="section fade-in">
             <h2 class="section-title">🎯 あなたが投稿したとき、Xのシステムはこう動く</h2>
             
@@ -790,7 +679,7 @@
                 <div class="flow-item">
                     <div class="flow-icon">📤</div>
                     <div class="flow-content">
-                        <div class="flow-time">1秒目</div>
+                        <div class="flow-time">ステップ1</div>
                         <div class="flow-title">投稿が送信される</div>
                     </div>
                 </div>
@@ -798,7 +687,7 @@
                 <div class="flow-item">
                     <div class="flow-icon">🔍</div>
                     <div class="flow-content">
-                        <div class="flow-time">2秒目</div>
+                        <div class="flow-time">ステップ2</div>
                         <div class="flow-title">システムが「良い投稿か？」を判定開始</div>
                     </div>
                 </div>
@@ -806,7 +695,7 @@
                 <div class="flow-item">
                     <div class="flow-icon">⚡</div>
                     <div class="flow-content">
-                        <div class="flow-time">30分後</div>
+                        <div class="flow-time">ステップ3</div>
                         <div class="flow-title">「他の人にも見せるか」を決定</div>
                     </div>
                 </div>
@@ -815,75 +704,57 @@
             <div class="alert alert-info">
                 <span class="alert-icon">💡</span>
                 <div>
-                    <strong>これが実際のXのコードが行っている処理です。</strong><br>
-                    投稿後30分間の反応で、その投稿の運命が決まります。
+                    <strong>これが実際のXのコードで確認できた処理です。</strong><br>
+                    投稿の反応によって、その投稿の運命が決まります。
                 </div>
             </div>
         </div>
 
-        <!-- アルゴリズムスコアの構成 -->
+        <!-- 6000のチェック項目 -->
         <div class="section fade-in">
-            <h2 class="section-title">🏆 Xが最も重視している5つのこと（優先度順）</h2>
+            <h2 class="section-title">🔬 驚きの事実！6000項目をチェック</h2>
             
-            <div class="score-visual">
-                <div class="pie-chart">
-                    <div class="pie-center">
-                        <div class="pie-total">100</div>
-                        <div class="pie-label">総合スコア</div>
-                    </div>
-                </div>
-
-                <div class="legend-grid">
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #FF6B6B;"></div>
-                        <div class="legend-info">
-                            <div class="legend-name">最初の30分の反応</div>
-                            <div class="legend-value">40%</div>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #4ECDC4;"></div>
-                        <div class="legend-info">
-                            <div class="legend-name">投稿の文章の質</div>
-                            <div class="legend-value">20%</div>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #45B7D1;"></div>
-                        <div class="legend-info">
-                            <div class="legend-name">あなたの信頼度</div>
-                            <div class="legend-value">20%</div>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #96CEB4;"></div>
-                        <div class="legend-info">
-                            <div class="legend-name">どのグループに属するか</div>
-                            <div class="legend-value">10%</div>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #FFEAA7;"></div>
-                        <div class="legend-info">
-                            <div class="legend-name">画像や動画の質</div>
-                            <div class="legend-value">10%</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="big-number-visual">
+                <div class="big-number">~6,000</div>
+                <div class="big-label">チェック項目</div>
             </div>
 
-            <div class="alert alert-success">
-                <span class="alert-icon">✅</span>
-                <div>
-                    <strong>60点以上で多くの人に表示されます！</strong><br>
-                    システムは100点満点で評価し、60点を超えると「おすすめ」タブに表示開始。
+            <p style="text-align: center; margin: 20px 0; font-size: 1.05rem;">
+                あなたの投稿を本当に細かくチェックしています！<br>
+                どんなことを見ているのか、例を見てみましょう
+            </p>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <span class="tip-icon">📊</span>
+                    <div class="tip-title">投稿者の情報</div>
+                    <div class="tip-description">
+                        フォロワー数、過去の投稿の質、アカウントの信頼度など
+                    </div>
+                    <span class="tip-badge">重要度：高</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon">📝</span>
+                    <div class="tip-title">投稿の内容</div>
+                    <div class="tip-description">
+                        文章の長さ、使われている言葉、話題性など
+                    </div>
+                    <span class="tip-badge">重要度：高</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon">⏰</span>
+                    <div class="tip-title">タイミング</div>
+                    <div class="tip-description">
+                        投稿時間、曜日、最近の活動状況など
+                    </div>
+                    <span class="tip-badge">重要度：中</span>
                 </div>
             </div>
         </div>
 
-        <!-- 27の追跡シグナル -->
+        <!-- 18の追跡行動 -->
         <div class="section fade-in">
-            <h2 class="section-title">📊 Xが追跡している27の行動</h2>
+            <h2 class="section-title">📊 Xが見ているあなたの18の行動</h2>
             
             <div class="signals-grid">
                 <div class="signal-category">
@@ -894,47 +765,42 @@
                     <div class="signal-list">
                         <div class="signal-item">
                             <div class="signal-icon">1</div>
-                            <div>いいね</div>
+                            <div>いいね（Tweet Favorite）</div>
                             <div class="signal-impact">★★★★★</div>
                         </div>
                         <div class="signal-item">
                             <div class="signal-icon">2</div>
-                            <div>RT（リツイート）</div>
+                            <div>RT（Retweet）</div>
                             <div class="signal-impact">★★★★★</div>
                         </div>
                         <div class="signal-item">
                             <div class="signal-icon">3</div>
-                            <div>投稿をクリック</div>
+                            <div>投稿をクリック（Tweet Click）</div>
                             <div class="signal-impact">★★★★☆</div>
                         </div>
                         <div class="signal-item">
                             <div class="signal-icon">4</div>
-                            <div>動画を見る</div>
+                            <div>動画を見る（Video Watch）</div>
                             <div class="signal-impact">★★★★☆</div>
                         </div>
                         <div class="signal-item">
                             <div class="signal-icon">5</div>
-                            <div>返信</div>
+                            <div>返信（Tweet Reply）</div>
                             <div class="signal-impact">★★★☆☆</div>
                         </div>
                         <div class="signal-item">
                             <div class="signal-icon">6</div>
-                            <div>引用RT</div>
+                            <div>引用RT（Quote Tweet）</div>
                             <div class="signal-impact">★★★☆☆</div>
                         </div>
                         <div class="signal-item">
                             <div class="signal-icon">7</div>
-                            <div>プロフィールを見る</div>
+                            <div>ブックマーク（Bookmark）</div>
                             <div class="signal-impact">★★☆☆☆</div>
                         </div>
                         <div class="signal-item">
                             <div class="signal-icon">8</div>
-                            <div>ブックマーク</div>
-                            <div class="signal-impact">★★☆☆☆</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-icon">9</div>
-                            <div>共有ボタン</div>
+                            <div>共有（Share）</div>
                             <div class="signal-impact">★☆☆☆☆</div>
                         </div>
                     </div>
@@ -948,39 +814,91 @@
                     <div class="signal-list">
                         <div class="signal-item" style="background: #fee;">
                             <div class="signal-icon" style="background: var(--danger);">×</div>
-                            <div>「興味なし」ボタン</div>
+                            <div>「興味なし」ボタン（Don't like）</div>
                             <div class="signal-impact" style="color: var(--danger);">最悪</div>
                         </div>
                         <div class="signal-item" style="background: #fee;">
                             <div class="signal-icon" style="background: var(--danger);">×</div>
-                            <div>報告</div>
+                            <div>報告（Report）</div>
                             <div class="signal-impact" style="color: var(--danger);">最悪</div>
                         </div>
                         <div class="signal-item" style="background: #fff5e6;">
                             <div class="signal-icon" style="background: var(--warning);">!</div>
-                            <div>ミュート</div>
+                            <div>ミュート（Mute）</div>
                             <div class="signal-impact" style="color: var(--warning);">悪い</div>
                         </div>
                         <div class="signal-item" style="background: #fff5e6;">
                             <div class="signal-icon" style="background: var(--warning);">!</div>
-                            <div>ブロック</div>
+                            <div>ブロック（Block）</div>
                             <div class="signal-impact" style="color: var(--warning);">悪い</div>
                         </div>
                         <div class="signal-item">
                             <div class="signal-icon" style="background: var(--gray);">-</div>
-                            <div>フォロー解除</div>
+                            <div>フォロー解除（Unfollow）</div>
                             <div class="signal-impact" style="color: var(--gray);">やや悪い</div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
 
-        <!-- 30分タイムライン -->
+        <!-- 14.5万のコミュニティ -->
         <div class="section fade-in">
-            <h2 class="section-title">⏰ 最重要：初動30分を制する方法（40%の影響度）</h2>
+            <h2 class="section-title">🏷️ 14万5千のコミュニティに分類（SimClusters）</h2>
             
-            <div class="timeline-container">
+            <div class="big-number-visual">
+                <div class="big-number">~145,000</div>
+                <div class="big-label">コミュニティ</div>
+            </div>
+
+            <p style="text-align: center; margin: 20px 0;">
+                SimClustersというシステムで、みんなを趣味や興味で分類！<br>
+                あなたの興味に合った投稿が届きやすくなります
+            </p>
+
+            <div class="card-scroll">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">👥</div>
+                        <div class="card-title">どうやって分類？</div>
+                    </div>
+                    <div class="card-example">
+                        あなたが誰をフォローしているかを見て、<br>
+                        同じような人をフォローしている人たちを<br>
+                        1つのグループにまとめます
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-title">なぜ重要？</div>
+                    </div>
+                    <div class="card-example">
+                        同じグループの人が反応した投稿は、<br>
+                        あなたにも表示されやすくなります。<br>
+                        趣味が合う人とつながりやすい！
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">どう使われる？</div>
+                    </div>
+                    <div class="card-example">
+                        投稿がいいねされるたびに、<br>
+                        その投稿がどのグループに人気か記録。<br>
+                        リアルタイムで更新されます！
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 実践アクションプラン -->
+        <div class="section fade-in">
+            <h2 class="section-title">🚀 投稿を伸ばすための実践プラン</h2>
+            
+            <div class="action-timeline">
                 <div class="timeline-line"></div>
                 
                 <div class="timeline-item">
@@ -988,10 +906,10 @@
                         <div class="timeline-dot"></div>
                     </div>
                     <div class="timeline-content">
-                        <div class="timeline-time">0-1分</div>
-                        <div>自分で即座に返信（補足情報を追加）</div>
-                        <div class="alert alert-info" style="margin-top: 10px;">
-                            <div>→ システムが「活発な投稿」と認識</div>
+                        <div class="timeline-time">投稿前の準備</div>
+                        <div class="timeline-description">フォロワーがアクティブな時間を確認</div>
+                        <div class="timeline-tip">
+                            💡 ヒント：平日は朝7-9時、昼12-13時、夜20-22時が狙い目
                         </div>
                     </div>
                 </div>
@@ -1001,10 +919,10 @@
                         <div class="timeline-dot"></div>
                     </div>
                     <div class="timeline-content">
-                        <div class="timeline-time">1-5分</div>
-                        <div>最初にいいねした人のプロフィールを見る＆いいね返し</div>
-                        <div class="alert alert-info" style="margin-top: 10px;">
-                            <div>→ 相互作用でコミュニティスコアUP</div>
+                        <div class="timeline-time">投稿直後</div>
+                        <div class="timeline-description">自分で補足の返信をする</div>
+                        <div class="timeline-tip">
+                            💡 ヒント：システムが「活発な投稿」と認識します
                         </div>
                     </div>
                 </div>
@@ -1014,10 +932,10 @@
                         <div class="timeline-dot"></div>
                     </div>
                     <div class="timeline-content">
-                        <div class="timeline-time">5-10分</div>
-                        <div>関連する自分の過去投稿をRT、似た投稿にいいね</div>
-                        <div class="alert alert-info" style="margin-top: 10px;">
-                            <div>→ ネットワーク効果の発動</div>
+                        <div class="timeline-time">最初の反応が来たら</div>
+                        <div class="timeline-description">いいねやRTしてくれた人に反応</div>
+                        <div class="timeline-tip">
+                            💡 ヒント：相互作用でエンゲージメント率UP
                         </div>
                     </div>
                 </div>
@@ -1027,103 +945,19 @@
                         <div class="timeline-dot"></div>
                     </div>
                     <div class="timeline-content">
-                        <div class="timeline-time">10-30分</div>
-                        <div>すべての返信に即レス、RT/引用してくれた人にお礼</div>
-                        <div class="alert alert-info" style="margin-top: 10px;">
-                            <div>→ エンゲージメント率の最大化</div>
+                        <div class="timeline-time">継続的に</div>
+                        <div class="timeline-description">返信には全て対応、交流を大切に</div>
+                        <div class="timeline-tip">
+                            💡 ヒント：良い反応が多いと次の投稿も伸びやすい
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="alert alert-warning">
-                <span class="alert-icon">⚠️</span>
-                <div>
-                    <strong>なぜ30分なのか？</strong><br>
-                    システムのSignal Ingesterが30分単位でデータを集計し、その後の拡散を決定するから。30分後では遅い！
                 </div>
             </div>
         </div>
 
-        <!-- テキスト品質スコア -->
+        <!-- 投稿のコツ -->
         <div class="section fade-in">
-            <h2 class="section-title">📝 テキスト品質を上げる方法（20%の影響度）</h2>
-            
-            <div class="quality-cards">
-                <div class="quality-card">
-                    <span class="quality-icon">📏</span>
-                    <div class="quality-title">適切な文字数</div>
-                    <div class="quality-description">
-                        100〜200文字が最適な長さです。短すぎず長すぎず、ちょうど読みやすい分量にまとめましょう。
-                    </div>
-                    <span class="quality-badge">理想的な範囲</span>
-                </div>
-
-                <div class="quality-card">
-                    <span class="quality-icon">📖</span>
-                    <div class="quality-title">読みやすい改行</div>
-                    <div class="quality-description">
-                        2〜3箇所で改行を入れると、スマホでも読みやすくなります。一つの塊を3〜4行程度に。
-                    </div>
-                    <span class="quality-badge high">重要度: 高</span>
-                </div>
-
-                <div class="quality-card">
-                    <span class="quality-icon">💡</span>
-                    <div class="quality-title">具体的な情報</div>
-                    <div class="quality-description">
-                        「すごい」より「売上が2倍に」など、具体的な数字や例を入れると興味を引きます。
-                    </div>
-                    <span class="quality-badge high">重要度: 高</span>
-                </div>
-
-                <div class="quality-card">
-                    <span class="quality-icon">😊</span>
-                    <div class="quality-title">ポジティブな表現</div>
-                    <div class="quality-description">
-                        前向きな言葉を使うと、より多くの人に読まれます。ネガティブな表現は控えめに。
-                    </div>
-                    <span class="quality-badge critical">重要度: 最高</span>
-                </div>
-
-                <div class="quality-card">
-                    <span class="quality-icon">❗</span>
-                    <div class="quality-title">強調しすぎない</div>
-                    <div class="quality-description">
-                        「！」の連続使用や、英語での全て大文字（LIKE THIS）は「叫んでいる」と判断されます。自然な表現を心がけましょう。
-                    </div>
-                    <span class="quality-badge success">適度な強調に</span>
-                </div>
-            </div>
-
-            <div class="checklist">
-                <div class="checklist-title">毎回の投稿でチェック</div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>100-200文字にまとめる</div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>改行を2-3箇所入れる</div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>具体的な数字や事実を入れる</div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>ポジティブな言葉を選ぶ</div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>大文字は使わない</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 高評価される投稿パターン -->
-        <div class="section fade-in">
-            <h2 class="section-title">✨ システムが高得点をつける投稿の型</h2>
+            <h2 class="section-title">✨ 多くの人に届く投稿の3つのパターン</h2>
             
             <div class="card-scroll">
                 <div class="card">
@@ -1179,191 +1013,106 @@
             </div>
         </div>
 
-        <!-- 2段階審査システム -->
+        <!-- チェックリスト -->
         <div class="section fade-in">
-            <h2 class="section-title">🔄 投稿が広まる仕組み（2段階の審査）</h2>
-            
-            <div style="background: linear-gradient(to right, #f8f9fa, white); padding: 20px; border-radius: 15px; margin: 20px 0;">
-                <h3 style="font-weight: 700; margin-bottom: 15px;">第1段階：最初のチェック（投稿した瞬間）</h3>
-                <div style="margin: 15px 0;">
-                    <strong>システムがやっていること：</strong><br>
-                    投稿した瞬間に「この投稿を誰に見せるか」を決めています。
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
-                    <strong>チェック項目：</strong><br>
-                    1. 投稿者は信頼できる人か？<br>
-                    2. 文章はちゃんと書かれているか？<br>
-                    3. 画像や動画はついているか？<br>
-                    4. 今話題の言葉が入っているか？<br>
-                    5. 返信やRTではなくオリジナル投稿か？
-                </div>
-                <div class="alert alert-success" style="margin: 15px 0;">
-                    <div>
-                        <strong>合格すると：</strong> まず少数の人（フォロワーの一部）に表示されます。
-                    </div>
-                </div>
-            </div>
-
-            <div style="background: linear-gradient(to right, white, #f8f9fa); padding: 20px; border-radius: 15px; margin: 20px 0;">
-                <h3 style="font-weight: 700; margin-bottom: 15px;">第2段階：詳しいチェック（30分後）</h3>
-                <div style="margin: 15px 0;">
-                    <strong>システムがやっていること：</strong><br>
-                    最初に見せた人たちの反応を見て、「もっと多くの人に見せるか」を決めています。
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
-                    <strong>システムが計算すること：</strong><br>
-                    • 約6000項目のチェックリスト（！）<br>
-                    • あなたの過去の投稿との比較<br>
-                    • 同じ時間帯の他の投稿との比較<br>
-                    • フォロワー以外の人も興味を持ちそうか
-                </div>
-                <div class="alert alert-success" style="margin: 15px 0;">
-                    <div>
-                        <strong>合格すると：</strong> 「おすすめ」タブに表示され、フォロワー以外にも届きます。
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 実践チェックリスト -->
-        <div class="section fade-in">
-            <h2 class="section-title">✅ 毎日の実践チェックリスト</h2>
+            <h2 class="section-title">✅ 投稿前の最終チェックリスト</h2>
             
             <div class="checklist">
-                <div class="checklist-title">🌅 投稿前チェック</div>
+                <div class="checklist-title">🌟 毎回必ずチェック！</div>
                 <div class="checklist-item">
                     <div class="checkbox"></div>
-                    <div>フォロワーのアクティブ時間を確認</div>
+                    <div>読みやすい長さになってる？（2-3ツイート分まで）</div>
                 </div>
                 <div class="checklist-item">
                     <div class="checkbox"></div>
-                    <div>100-200文字で書く</div>
+                    <div>改行を使って見やすくした？</div>
                 </div>
                 <div class="checklist-item">
                     <div class="checkbox"></div>
-                    <div>改行を2-3箇所入れる</div>
+                    <div>ポジティブまたは役立つ内容？</div>
                 </div>
                 <div class="checklist-item">
                     <div class="checkbox"></div>
-                    <div>ポジティブな内容にする</div>
+                    <div>画像や動画を追加した？（あれば）</div>
                 </div>
                 <div class="checklist-item">
                     <div class="checkbox"></div>
-                    <div>具体的な情報を含める</div>
+                    <div>誰かを傷つける内容じゃない？</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>同じ内容を何度も投稿してない？</div>
                 </div>
             </div>
 
-            <div class="checklist">
-                <div class="checklist-title">🚀 投稿後30分アクション</div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>0-1分: 自分で即座に返信</div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>1-5分: エンゲージャーに返信</div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>5-10分: 関連投稿をRT</div>
-                </div>
-                <div class="checklist-item">
-                    <div class="checkbox"></div>
-                    <div>10-30分: すべての返信に対応</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ペナルティ警告 -->
-        <div class="section fade-in">
-            <h2 class="section-title">⚠️ やってはいけないこと（システムが嫌うこと）</h2>
-            
-            <div class="alert alert-danger">
-                <span class="alert-icon">🚫</span>
+            <div class="alert alert-success">
+                <span class="alert-icon">✨</span>
                 <div>
-                    <strong>即ペナルティになる行動</strong><br>
-                    1. 同じ投稿を何度も投稿 → スパム判定<br>
-                    2. 「RTしたら〇〇」のような投稿 → 質の低い投稿判定<br>
-                    3. 大量の人にメンション → 迷惑行為判定
+                    <strong>全部チェックできたら投稿しよう！</strong><br>
+                    投稿後はできるだけオンラインで反応をチェック
                 </div>
+            </div>
+        </div>
+
+        <!-- やってはいけないこと -->
+        <div class="section fade-in">
+            <h2 class="section-title">⚠️ 絶対にやってはいけないこと</h2>
+            
+            <div class="danger-box">
+                <div class="danger-title">🚫 即ペナルティになる行動</div>
+                <ul class="danger-list">
+                    <li>同じ投稿を何度も繰り返す（スパム判定）</li>
+                    <li>大量の人にメンション（迷惑行為判定）</li>
+                    <li>「RTしたら〇〇」系の投稿（質の低い投稿判定）</li>
+                    <li>暴言や差別的な内容（Trust and Safetyモデルが検出）</li>
+                </ul>
             </div>
 
             <div class="alert alert-warning">
                 <span class="alert-icon">⚠️</span>
                 <div>
-                    <strong>徐々に評価が下がる行動</strong><br>
-                    • ネガティブな投稿ばかり<br>
-                    • リンクだけの投稿<br>
-                    • 宣伝ばかりの投稿<br>
-                    • 返信を無視し続ける
-                </div>
-            </div>
-        </div>
-
-        <!-- 成功の方程式 -->
-        <div class="section fade-in">
-            <h2 class="section-title">📈 成功の方程式（システムの計算方法）</h2>
-            
-            <div class="formula-box">
-                <div style="margin-bottom: 20px;">Xのシステムは、あなたの投稿をこんな風に点数化しています：</div>
-                <div class="formula">
-                    <div class="formula-part">最初の30分の反応 × 40点</div>
-                    <div style="color: white;">＋</div>
-                    <div class="formula-part">文章の質 × 20点</div>
-                    <div style="color: white;">＋</div>
-                    <div class="formula-part">あなたの信頼度 × 20点</div>
-                    <div style="color: white;">＋</div>
-                    <div class="formula-part">グループ適合度 × 10点</div>
-                    <div style="color: white;">＋</div>
-                    <div class="formula-part">画像/動画の質 × 10点</div>
-                    <div style="color: white;">－</div>
-                    <div class="formula-part">ペナルティ</div>
-                </div>
-                <div style="margin-top: 20px; font-size: 1.2rem;">
-                    <strong>100点満点で60点以上</strong>だと、多くの人に表示されます。
+                    <strong>4つのAIが常にチェックしています</strong><br>
+                    不適切な画像、不適切な文章、有害な内容、規約違反を<br>
+                    自動的に検出してペナルティを与えます
                 </div>
             </div>
         </div>
 
         <!-- まとめ -->
-        <div class="section fade-in">
-            <h2 class="section-title">🎯 まとめ：Xで成功する3つの真実</h2>
+        <div class="summary-box">
+            <div class="summary-title">🎯 まとめ：Xで成功する本当の方法</div>
             
-            <div style="display: grid; gap: 15px; margin: 20px 0;">
-                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 15px;">
-                    <div style="font-size: 2rem; margin-bottom: 10px;">1️⃣</div>
-                    <div style="font-weight: 700; font-size: 1.2rem; margin-bottom: 5px;">最初の30分がすべて</div>
-                    <div>システムは30分で「良い投稿」か判断している</div>
+            <div class="summary-points">
+                <div class="summary-point">
+                    <div class="summary-number">1️⃣</div>
+                    <div class="summary-text">
+                        <strong>18の行動が追跡されている</strong><br>
+                        いいね、RT、クリックなど全て記録
+                    </div>
                 </div>
-
-                <div style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white; padding: 20px; border-radius: 15px;">
-                    <div style="font-size: 2rem; margin-bottom: 10px;">2️⃣</div>
-                    <div style="font-weight: 700; font-size: 1.2rem; margin-bottom: 5px;">約6000項目をチェック</div>
-                    <div>思っている以上に細かく分析されている</div>
+                <div class="summary-point">
+                    <div class="summary-number">2️⃣</div>
+                    <div class="summary-text">
+                        <strong>約6000項目でチェック</strong><br>
+                        AIが細かく投稿を分析
+                    </div>
                 </div>
-
-                <div style="background: linear-gradient(135deg, #4facfe, #00f2fe); color: white; padding: 20px; border-radius: 15px;">
-                    <div style="font-size: 2rem; margin-bottom: 10px;">3️⃣</div>
-                    <div style="font-weight: 700; font-size: 1.2rem; margin-bottom: 5px;">27の行動を常に追跡</div>
-                    <div>あなたのすべての行動が記録され、評価に使われている</div>
+                <div class="summary-point">
+                    <div class="summary-number">3️⃣</div>
+                    <div class="summary-text">
+                        <strong>14.5万のコミュニティ</strong><br>
+                        同じ趣味の人に届きやすい仕組み
+                    </div>
                 </div>
-            </div>
-
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin: 20px 0; text-align: center;">
-                <p style="font-size: 1.1rem; line-height: 1.8;">
-                    でも難しく考える必要はありません。<br>
-                    <strong style="color: var(--primary);">「面白い・役立つ・共感できる」投稿を、読みやすく書いて、フォロワーと交流する</strong><br>
-                    これだけで、システムはあなたの投稿を「良い」と判断してくれます。
-                </p>
             </div>
         </div>
 
         <!-- CTA -->
         <div class="cta-section">
-            <h2 style="margin-bottom: 20px;">今すぐ始めよう！</h2>
+            <h2 style="margin-bottom: 20px;">今すぐ実践してみよう！</h2>
             <p style="color: var(--gray); margin-bottom: 30px;">
                 このガイドは、Xが公開したアルゴリズムコードの解析に基づいています。<br>
-                実際の処理内容をわかりやすく説明しています。
+                確認できた事実だけをわかりやすく説明しました。
             </p>
             <a href="https://github.com/twitter/the-algorithm" class="btn" target="_blank">
                 📖 ソースコードを見る
@@ -1373,8 +1122,8 @@
 
     <!-- フッター -->
     <div class="footer">
-        <p>Made with ❤️ based on X's open source algorithm</p>
-        <p>© 2024 X Algorithm Analysis Guide</p>
+        <p>Based on X's open source algorithm - 正確な情報のみ掲載</p>
+        <p>© 2024 X Algorithm Guide (Super Simple Version)</p>
     </div>
 
     <script>
@@ -1389,36 +1138,6 @@
                     checkbox.innerHTML = '';
                 }
             });
-        });
-
-        // プログレスバーアニメーション
-        const observerOptions = {
-            threshold: 0.3,
-            rootMargin: '0px'
-        };
-
-        // カードアニメーション
-        const cardObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const cards = entry.target.querySelectorAll('.quality-card');
-                    cards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.quality-cards').forEach(container => {
-            container.querySelectorAll('.quality-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'all 0.5s ease';
-            });
-            cardObserver.observe(container);
         });
 
         // フェードインアニメーション
