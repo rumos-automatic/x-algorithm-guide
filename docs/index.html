@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xアルゴリズム完全攻略ガイド2024</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1DA1F2;
+            --dark: #14171A;
+            --gray: #657786;
+            --light-gray: #E1E8ED;
+            --white: #FFFFFF;
+            --success: #17BF63;
+            --warning: #FFAD1F;
+            --danger: #E0245E;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f5f8fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ヘッダー */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* セクション */
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--dark);
+            border-left: 5px solid var(--primary);
+            padding-left: 20px;
+        }
+
+        /* スコア構成の円グラフ */
+        .score-chart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .chart-svg {
+            transform: rotate(-90deg);
+        }
+
+        .chart-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .chart-total {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+
+        .chart-label {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .legend-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .legend-text {
+            flex: 1;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .legend-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        /* タイムライン */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .timeline-left, .timeline-right {
+            width: 45%;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .timeline-left:hover, .timeline-right:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-time {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        /* カード */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .card-content {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* プログレスバー */
+        .progress-item {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background: var(--light-gray);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: var(--gradient);
+            height: 100%;
+            border-radius: 15px;
+            transition: width 2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: 700;
+        }
+
+        /* チェックリスト */
+        .checklist {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .checklist-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .checkbox {
+            width: 25px;
+            height: 25px;
+            border: 3px solid var(--primary);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkbox:hover {
+            background: var(--primary);
+        }
+
+        /* 警告ボックス */
+        .alert {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alert-danger {
+            background: #fee;
+            border-left: 4px solid var(--danger);
+            color: var(--danger);
+        }
+
+        .alert-success {
+            background: #e6ffed;
+            border-left: 4px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-warning {
+            background: #fff8e6;
+            border-left: 4px solid var(--warning);
+            color: var(--warning);
+        }
+
+        /* ボタン */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .score-chart {
+                flex-direction: column;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .timeline-left, .timeline-right {
+                width: calc(100% - 60px);
+                margin-left: 60px;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* アニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヒーローセクション -->
+    <div class="hero">
+        <h1>🚀 Xアルゴリズム完全攻略ガイド</h1>
+        <p>公開コードから判明した「バズる投稿」の科学的メソッド</p>
+    </div>
+
+    <div class="container">
+        <!-- アルゴリズムスコアの構成 -->
+        <div class="section fade-in">
+            <h2 class="section-title">📊 Xアルゴリズムが見ている5つの要素</h2>
+            
+            <div class="score-chart">
+                <div class="chart-container">
+                    <svg class="chart-svg" width="300" height="300" viewBox="0 0 100 100">
+                        <!-- 初動30分: 40% -->
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#e0e0e0" stroke-width="20"/>
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#FF6B6B" stroke-width="20"
+                                stroke-dasharray="50.24 125.6" stroke-dashoffset="0"/>
+                        <!-- テキスト品質: 20% -->
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#4ECDC4" stroke-width="20"
+                                stroke-dasharray="25.12 125.6" stroke-dashoffset="-50.24"/>
+                        <!-- 信頼度: 20% -->
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#45B7D1" stroke-width="20"
+                                stroke-dasharray="25.12 125.6" stroke-dashoffset="-75.36"/>
+                        <!-- コミュニティ: 10% -->
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#96CEB4" stroke-width="20"
+                                stroke-dasharray="12.56 125.6" stroke-dashoffset="-100.48"/>
+                        <!-- メディア: 10% -->
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#FFEAA7" stroke-width="20"
+                                stroke-dasharray="12.56 125.6" stroke-dashoffset="-113.04"/>
+                    </svg>
+                    <div class="chart-center">
+                        <div class="chart-total">100</div>
+                        <div class="chart-label">総合スコア</div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FF6B6B;"></div>
+                        <div class="legend-text">
+                            <div class="legend-title">🔥 初動30分のエンゲージメント</div>
+                        </div>
+                        <div class="legend-value">40%</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4ECDC4;"></div>
+                        <div class="legend-text">
+                            <div class="legend-title">📝 テキスト品質スコア</div>
+                        </div>
+                        <div class="legend-value">20%</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #45B7D1;"></div>
+                        <div class="legend-text">
+                            <div class="legend-title">⭐ ユーザー信頼度</div>
+                        </div>
+                        <div class="legend-value">20%</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #96CEB4;"></div>
+                        <div class="legend-text">
+                            <div class="legend-title">👥 コミュニティ適合度</div>
+                        </div>
+                        <div class="legend-value">10%</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FFEAA7;"></div>
+                        <div class="legend-text">
+                            <div class="legend-title">🎨 メディア品質</div>
+                        </div>
+                        <div class="legend-value">10%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <span style="font-size: 1.5rem;">💡</span>
+                <div>
+                    <strong>60点以上で拡散開始！</strong><br>
+                    システムは100点満点で評価し、60点を超えると「おすすめ」に表示されます
+                </div>
+            </div>
+        </div>
+
+        <!-- 黄金の30分タイムライン -->
+        <div class="section fade-in">
+            <h2 class="section-title">⏰ 投稿後30分の黄金タイムライン</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-left">
+                        <div class="timeline-time">0-1分</div>
+                        <div>即座に自分で返信して補足情報追加</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right" style="opacity: 0;"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-left" style="opacity: 0;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right">
+                        <div class="timeline-time">1-5分</div>
+                        <div>最初のエンゲージャーに返信＆いいね返し</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-left">
+                        <div class="timeline-time">5-10分</div>
+                        <div>関連投稿をRT、似た投稿にいいね</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right" style="opacity: 0;"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-left" style="opacity: 0;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-right">
+                        <div class="timeline-time">10-30分</div>
+                        <div>すべての返信に即レス、お礼、追加情報</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <span style="font-size: 1.5rem;">⚠️</span>
+                <div>
+                    <strong>30分後では遅い！</strong><br>
+                    Signal Ingesterが30分単位でデータを集計し、その後の拡散を決定します
+                </div>
+            </div>
+        </div>
+
+        <!-- テキスト品質スコアを上げる方法 -->
+        <div class="section fade-in">
+            <h2 class="section-title">✍️ テキスト品質スコアを最大化する方法</h2>
+            
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span>📏 文字数（100-200文字）</span>
+                    <span>最適</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;">100%</div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span>📖 読みやすさ（改行2-3箇所）</span>
+                    <span>高</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 90%;">90%</div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span>💡 情報量（具体的な内容）</span>
+                    <span>充実</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%;">85%</div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span>😊 ポジティブ度</span>
+                    <span>良好</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 95%;">95%</div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span>🔤 大文字使用率</span>
+                    <span>低（良）</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 10%; background: var(--success);">10%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 実践チェックリスト -->
+        <div class="section fade-in">
+            <h2 class="section-title">✅ 毎日の実践チェックリスト</h2>
+            
+            <div class="checklist">
+                <h3 style="margin-bottom: 20px;">📱 投稿前チェック</h3>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>フォロワーのアクティブ時間を確認</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>100-200文字で書く</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>改行を2-3箇所入れる</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>ポジティブな内容にする</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>具体的な情報を含める</div>
+                </div>
+            </div>
+
+            <div class="checklist">
+                <h3 style="margin-bottom: 20px;">🚀 投稿後30分アクション</h3>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>0-1分: 自分で即座に返信</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>1-5分: エンゲージャーに返信</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>5-10分: 関連投稿をRT</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>10-30分: すべての返信に対応</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3つの投稿パターン -->
+        <div class="section fade-in">
+            <h2 class="section-title">🎯 システムが高評価する3つの投稿パターン</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">💭</div>
+                    <div class="card-title">体験＋学び型</div>
+                    <div class="card-content">
+                        「今日〇〇してみたら△△だった。<br>
+                        これって意外と□□なんだね。<br>
+                        みんなも試してみて！」<br><br>
+                        <strong>ポイント：</strong>具体的な体験と学びを共有
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">データ＋意見型</div>
+                    <div class="card-content">
+                        「〇〇が△△％増えたらしい。<br>
+                        個人的には□□が原因だと思う。<br>
+                        どう思う？」<br><br>
+                        <strong>ポイント：</strong>客観的データと主観的意見の組み合わせ
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">💡</div>
+                    <div class="card-title">問題＋解決型</div>
+                    <div class="card-content">
+                        「〇〇で困ってたけど、<br>
+                        △△したら解決した！<br>
+                        同じ悩みの人の参考になれば。」<br><br>
+                        <strong>ポイント：</strong>共感と価値提供の両立
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ペナルティ警告 -->
+        <div class="section fade-in">
+            <h2 class="section-title">⚠️ アルゴリズムペナルティを避ける</h2>
+            
+            <div class="alert alert-danger">
+                <span style="font-size: 1.5rem;">🚫</span>
+                <div>
+                    <strong>重大ペナルティ（絶対に避ける）</strong><br>
+                    • 同じ内容を3回以上投稿 → スパム判定<br>
+                    • 5人以上に一度にメンション → 迷惑行為判定<br>
+                    • 「RTしたら〇〇」系 → エンゲージメントベイト判定<br>
+                    • 全文大文字 → SHOUTスコアでマイナス<br>
+                    • 攻撃的な言葉 → pToxicityスコア上昇
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <span style="font-size: 1.5rem;">⚠️</span>
+                <div>
+                    <strong>中程度ペナルティ（注意する）</strong><br>
+                    • 投稿後30分放置 → 初動スコア0点<br>
+                    • リンクだけの投稿 → 情報量スコア低下<br>
+                    • 絵文字だらけ → 読みやすさスコア低下<br>
+                    • 返信を無視 → エンゲージメント率低下
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="section fade-in" style="text-align: center;">
+            <h2 class="section-title" style="border: none; text-align: center;">🎯 今すぐ始めよう！</h2>
+            <p style="font-size: 1.2rem; margin: 30px 0; color: var(--gray);">
+                このガイドは、Xが公開したアルゴリズムコードの解析に基づいています。<br>
+                3ヶ月続ければ、確実に結果が出ます。
+            </p>
+            
+            <div style="margin: 40px 0;">
+                <a href="https://github.com/twitter/the-algorithm" class="btn" target="_blank">
+                    📖 ソースコードを見る
+                </a>
+            </div>
+
+            <p style="color: var(--gray); margin-top: 40px;">
+                Made with ❤️ based on X's open source algorithm<br>
+                最終更新: 2024年
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // チェックボックスのインタラクション
+        document.querySelectorAll('.checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                if (this.innerHTML === '') {
+                    this.innerHTML = '✓';
+                    this.style.background = 'var(--primary)';
+                    this.style.color = 'white';
+                } else {
+                    this.innerHTML = '';
+                    this.style.background = 'transparent';
+                }
+            });
+        });
+
+        // スクロールアニメーション
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.8s ease';
+            observer.observe(section);
+        });
+
+        // プログレスバーアニメーション
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fills = entry.target.querySelectorAll('.progress-fill');
+                    fills.forEach(fill => {
+                        const width = fill.style.width;
+                        fill.style.width = '0';
+                        setTimeout(() => {
+                            fill.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.progress-item').forEach(item => {
+            progressObserver.observe(item);
+        });
+    </script>
+</body>
+</html>
