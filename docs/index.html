@@ -172,11 +172,16 @@
             width: 250px;
             height: 250px;
             margin: 20px auto;
-        }
-
-        .pie-svg {
-            transform: rotate(-90deg);
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #FF6B6B 0deg 144deg,     /* 40% = 144deg */
+                #4ECDC4 144deg 216deg,   /* 20% = 72deg */
+                #45B7D1 216deg 288deg,   /* 20% = 72deg */
+                #96CEB4 288deg 324deg,   /* 10% = 36deg */
+                #FFEAA7 324deg 360deg    /* 10% = 36deg */
+            );
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .pie-center {
@@ -192,7 +197,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .pie-total {
@@ -784,30 +789,6 @@
             
             <div class="score-visual">
                 <div class="pie-chart">
-                    <svg class="pie-svg" width="250" height="250" viewBox="0 0 250 250">
-                        <!-- 背景円 -->
-                        <circle cx="125" cy="125" r="80" fill="none" stroke="#e0e0e0" stroke-width="40"/>
-                        
-                        <!-- 初動30分: 40% (0から144度) -->
-                        <circle cx="125" cy="125" r="80" fill="none" stroke="#FF6B6B" stroke-width="40"
-                                stroke-dasharray="201.06 502.66" stroke-dashoffset="0" transform="rotate(-90 125 125)"/>
-                        
-                        <!-- テキスト品質: 20% (144度から216度) -->
-                        <circle cx="125" cy="125" r="80" fill="none" stroke="#4ECDC4" stroke-width="40"
-                                stroke-dasharray="100.53 502.66" stroke-dashoffset="-201.06" transform="rotate(-90 125 125)"/>
-                        
-                        <!-- 信頼度: 20% (216度から288度) -->
-                        <circle cx="125" cy="125" r="80" fill="none" stroke="#45B7D1" stroke-width="40"
-                                stroke-dasharray="100.53 502.66" stroke-dashoffset="-301.59" transform="rotate(-90 125 125)"/>
-                        
-                        <!-- コミュニティ: 10% (288度から324度) -->
-                        <circle cx="125" cy="125" r="80" fill="none" stroke="#96CEB4" stroke-width="40"
-                                stroke-dasharray="50.27 502.66" stroke-dashoffset="-402.12" transform="rotate(-90 125 125)"/>
-                        
-                        <!-- メディア: 10% (324度から360度) -->
-                        <circle cx="125" cy="125" r="80" fill="none" stroke="#FFEAA7" stroke-width="40"
-                                stroke-dasharray="50.27 502.66" stroke-dashoffset="-452.39" transform="rotate(-90 125 125)"/>
-                    </svg>
                     <div class="pie-center">
                         <div class="pie-total">100</div>
                         <div class="pie-label">総合スコア</div>
